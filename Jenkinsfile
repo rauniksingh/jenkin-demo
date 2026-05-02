@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "yourdockerhubusername/myapp"
-        EC2_HOST = "your-ec2-public-ip"
+        IMAGE_NAME = "rauniksingh/jenkin-demo"
+        EC2_HOST = "34.227.72.164"
         EC2_USER = "ec2-user"
     }
 
@@ -12,7 +12,8 @@ pipeline {
         stage('Clone Code') {
             steps {
                 git branch: 'main',
-                url: 'git@github.com:yourusername/yourrepo.git'
+                credentialsId: 'github-token',
+                url: 'https://github.com/rauniksingh/jenkin-demo.git'
             }
         }
 
