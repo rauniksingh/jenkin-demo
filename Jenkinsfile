@@ -41,14 +41,14 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                  sshagent(['ec2-prod-key']) {
-                      sh """
-                          ssh -o StrictHostKeyChecking=no ec2-user@34.227.72.164 '
-                              docker pull rauniksingh/jenkin-demo:latest &&
-                              docker stop myapp || true &&
-                              docker rm myapp || true &&
-                           docker run -d --name myapp -p 80:3000 rauniksingh/jenkin-demo:latest
-                          '
-                      """
+                     sh '''
+                        ssh ec2-user@34.227.72.164 "
+                            docker pull rauniksingh/jenkin-demo:latest &&
+                            docker stop myapp || true &&
+                            docker rm myapp || true &&
+                            docker run -d --name myapp -p 8081:3000 rauniksingh/jenkin-demo:latest
+                        "
+                    '''
                   }
             }
         }
